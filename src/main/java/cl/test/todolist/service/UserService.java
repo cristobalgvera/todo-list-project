@@ -4,6 +4,7 @@ import cl.test.todolist.model.Credential;
 import cl.test.todolist.model.User;
 import cl.test.todolist.service.dao.DAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -18,11 +19,17 @@ public class UserService {
     @Autowired
     private DAO<Credential, Long> credentialDAO;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public User save(User user, Credential credential) {
-        user = userDAO.save(user);
+//        user = userDAO.save(user);
+        credential.setPassword(bCryptPasswordEncoder.encode(credential.getPassword()));
         user.setCredential(credential);
         credential.setUser(user);
-        credentialDAO.save(credential);
+        System.out.println(credential.getUser());
+//        credentialDAO.save(credential);
+        user = userDAO.save(user);
         return user;
     }
 

@@ -1,7 +1,6 @@
 package cl.test.todolist.rest;
 
 import cl.test.todolist.model.Credential;
-import cl.test.todolist.model.User;
 import cl.test.todolist.service.CredentialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -9,13 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/credentials")
+@RequestMapping("/admin/credentials")
 public class CredentialRestController {
 
     @Autowired
     private CredentialService credentialService;
 
-    @PostMapping("/insert")
+    @PostMapping
     public void insert(@RequestBody CredentialContext credentialContext) {
         Credential credential = credentialContext.getCredential();
         Long userId = credentialContext.getUserId();
@@ -37,7 +36,7 @@ public class CredentialRestController {
         return credentialService.update(credential);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping
     public void deleteOne(@RequestBody Credential credential) {
         credentialService.delete(credential);
     }

@@ -14,7 +14,7 @@ public class Credential {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 120, nullable = false)
     private String password;
 
     @Column(length = 30)

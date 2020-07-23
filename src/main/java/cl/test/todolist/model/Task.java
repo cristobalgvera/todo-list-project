@@ -14,7 +14,14 @@ public class Task {
     @GeneratedValue(generator = "TASK_SEQ")
     private Long Id;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade =
+            {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH
+            },
+            fetch = FetchType.LAZY)
     @JoinColumn(name = "TODO_LIST_ID")
     @JsonIgnore
     private TodoList todoList;

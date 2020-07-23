@@ -17,7 +17,8 @@ public class User {
 
     @OneToOne(mappedBy = "user",
             cascade = CascadeType.ALL,
-            optional = false)
+            optional = false,
+            fetch = FetchType.LAZY)
 //    @JsonBackReference
 //    @JsonManagedReference
     @JsonIgnore

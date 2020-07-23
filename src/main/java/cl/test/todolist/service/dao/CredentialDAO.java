@@ -1,7 +1,6 @@
 package cl.test.todolist.service.dao;
 
 import cl.test.todolist.model.Credential;
-import cl.test.todolist.model.User;
 import cl.test.todolist.repository.CredentialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
