@@ -30,6 +30,11 @@ public class Task {
     private Date task_date;
     private boolean completed;
 
+    @PrePersist
+    private void onCreate() {
+        setCompleted(false);
+    }
+
     public Long getId() {
         return Id;
     }
@@ -74,6 +79,7 @@ public class Task {
     public String toString() {
         return "Task{" +
                 "Id=" + Id +
+                ", todoList=" + todoList.getId() +
                 ", description='" + description + '\'' +
                 ", task_date=" + task_date +
                 ", completed=" + completed +

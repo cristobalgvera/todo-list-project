@@ -7,25 +7,28 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class UserServiceTest extends AbstractTest {
+public class TaskServiceTest extends AbstractTest {
     @Test
     @Transactional
-    protected void createUser() {
-        currentTest = "INSERT USER TO DATABASE";
+    void createTask() {
+        currentTest = "INSERT CREATE TASK INTO DATABASE";
         log.start(currentTest);
         createDefaultModel();
         try {
             dbUser = userService.save(testUser, testCredential);
             dbCredential = credentialService.findOne(dbUser.getId());
+            dbTodoList = todoListService.save(dbUser.getId(), testTodoList);
+            dbTask = taskService.save(dbTodoList.getId(), testTask);
+            dbUser = userService.findOne(dbUser.getId());
         } catch (Exception e) {
             log.warning(e.fillInStackTrace());
         } finally {
             log.message(dbUser);
-            log.message(dbCredential);
-            assertEquals(testCredential.getPassword(), dbCredential.getPassword());
+            log.message(dbTodoList);
+            log.message(dbTask);
+            assertEquals(dbTask.getTodoList().getId(), dbTodoList.getId());
             if (dbCredential != null) userService.delete(dbUser.getId());
             log.finish(currentTest);
         }
     }
-
 }

@@ -1,4 +1,4 @@
-package cl.test.todolist.rest;
+package cl.test.todolist.controller.rest;
 
 import cl.test.todolist.model.Credential;
 import cl.test.todolist.service.CredentialService;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/admin/credentials")
+@RequestMapping("/admin/rest/credentials")
 public class CredentialRestController {
 
     @Autowired
@@ -36,9 +36,9 @@ public class CredentialRestController {
         return credentialService.update(credential);
     }
 
-    @DeleteMapping
-    public void deleteOne(@RequestBody Credential credential) {
-        credentialService.delete(credential);
+    @DeleteMapping("/{id}")
+    public void deleteOne(@PathVariable Long id) {
+        credentialService.delete(id);
     }
 }
 

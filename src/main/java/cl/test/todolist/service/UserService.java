@@ -17,9 +17,6 @@ public class UserService {
     private DAO<User, Long> userDAO;
 
     @Autowired
-    private DAO<Credential, Long> credentialDAO;
-
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public User save(User user, Credential credential) {
@@ -27,10 +24,8 @@ public class UserService {
         credential.setPassword(bCryptPasswordEncoder.encode(credential.getPassword()));
         user.setCredential(credential);
         credential.setUser(user);
-        System.out.println(credential.getUser());
 //        credentialDAO.save(credential);
-        user = userDAO.save(user);
-        return user;
+        return userDAO.save(user);
     }
 
     public Collection<User> findAll() {
@@ -38,14 +33,15 @@ public class UserService {
     }
 
     public User findOne(Long id) {
-        return userDAO.get(id).orElseThrow(() -> new EntityNotFoundException("Not found: " + id));
+        return userDAO.get(id)
+                .orElseThrow(() -> new EntityNotFoundException("Not found user: " + id));
     }
 
     public User update(User user) {
         return userDAO.update(user);
     }
 
-    public void delete(User user) {
-        userDAO.delete(user);
+    public void delete(Long id) {
+        userDAO.delete(id);
     }
 }

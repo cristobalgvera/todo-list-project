@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#users').DataTable();
+            $(function () {
+                $(".widget input[type=submit], .widget a, .widget button").button();
+                $("button, input, a").click(function (event) {
+                    event.preventDefault();
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div>
+    <h1>Users</h1>
+    <a class="ui-button ui-widget ui-corner-all" th:href="@{/admin}">Back</a>
+    <br/>
+    <table id="users" class="display">
+        <thead>
+        <tr>
+            <th>N°</th>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="userDetails, stats : ${users}">
+            <tr>
+                <td th:text="${stats.count}"></td>
+                <td th:text="${userDetails.user.id}"></td>
+                <td th:text="${userDetails.user.firstName}"></td>
+                <td th:text="${userDetails.user.lastName}"></td>
+                <td th:text="${userDetails.user.age}"></td>
+                <td th:text="${userDetails.user.gender ? 'M' : 'F'}"></td>
+                <td th:text="${userDetails.credential.email}"></td>
+                <td th:text="${userDetails.credential.roles}"></td>
+                <td th:text="${userDetails.credential.active}"></td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

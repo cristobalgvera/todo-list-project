@@ -38,16 +38,26 @@ public class CredentialDAO implements DAO<Credential, Long> {
 
     @Override
     public Credential update(Credential credential) {
-        Credential dbCredential = get(credential.getId()).orElseThrow(() -> new EntityNotFoundException("Not found:" + credential.getId()));
-        dbCredential.setEmail(credential.getEmail());
-        dbCredential.setPassword(credential.getPassword());
-        dbCredential.setActive(credential.isActive());
-        dbCredential.setRoles(credential.getRoles());
+        Credential dbCredential = get(credential.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Not found credential:" + credential.getId()));
+
+        if (!credential.getEmail().equals(dbCredential.getEmail()))
+            dbCredential.setEmail(credential.getEmail());
+
+        if (!credential.getPassword().equals(dbCredential.getPassword()))
+            dbCredential.setPassword(credential.getPassword());
+
+        if (credential.isActive() != dbCredential.isActive())
+            dbCredential.setActive(credential.isActive());
+
+        if (!credential.getRoles().equals(dbCredential.getRoles()))
+            dbCredential.setRoles(credential.getRoles());
+
         return credentialRepository.save(dbCredential);
     }
 
     @Override
-    public void delete(Credential credential) {
-        credentialRepository.deleteById(credential.getId());
+    public void delete(Long id) {
+        credentialRepository.deleteById(id);
     }
 }

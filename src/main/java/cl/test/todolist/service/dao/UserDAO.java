@@ -18,9 +18,6 @@ public class UserDAO implements DAO<User, Long> {
     @Autowired
     private UserRepository userRepository;
 
-    public UserDAO() {
-    }
-
     @Override
     public Optional<User> get(Long id) {
         return Optional.ofNullable(userRepository.getOne(id));
@@ -41,15 +38,19 @@ public class UserDAO implements DAO<User, Long> {
 
     @Override
     public User update(User user) {
-        User dbUser = get(user.getId()).orElseThrow(() -> new EntityNotFoundException("Not found:" + user.getId()));
-        dbUser.setFirstName(user.getFirstName());
+        User dbUser = get(user.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Not found user:" + user.getId()));
+
+        if (!user.getFirstName().equals(dbUser.getFirstName()))
+            dbUser.setFirstName(user.getFirstName());
+
         dbUser.setLastName(user.getLastName());
         dbUser.setAge(user.getAge());
         return userRepository.save(dbUser);
     }
 
     @Override
-    public void delete(User user) {
-        userRepository.deleteById(user.getId());
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 }

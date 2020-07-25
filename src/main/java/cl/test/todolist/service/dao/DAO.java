@@ -12,5 +12,5 @@ public interface DAO<T, S> {
 
     T update(T t);
 
-    void delete(T t);
+    void delete(S id);
 }

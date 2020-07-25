@@ -38,7 +38,7 @@ public class User {
     @Column(length = 3)
     private int age;
 
-    private boolean sex;
+    private boolean gender;
 
     public User() {
     }
@@ -97,12 +97,12 @@ public class User {
         this.age = age;
     }
 
-    public boolean isSex() {
-        return sex;
+    public boolean isGender() {
+        return gender;
     }
 
-    public void setSex(boolean sex) {
-        this.sex = sex;
+    public void setGender(boolean sex) {
+        this.gender = sex;
     }
 
     @Override
@@ -114,7 +114,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
-                ", sex=" + sex +
+                ", sex=" + gender +
                 '}';
     }
 }

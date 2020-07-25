@@ -29,7 +29,8 @@ public class CredentialService {
     }
 
     public Credential findOne(Long userId) {
-        return credentialDAO.get(userId).orElseThrow(() -> new EntityNotFoundException("Not found: " + userId));
+        return credentialDAO.get(userId)
+                .orElseThrow(() -> new EntityNotFoundException("Not found credential: " + userId));
     }
 
     public Credential update(Credential credential) {
@@ -37,7 +38,7 @@ public class CredentialService {
         return credentialDAO.update(credential);
     }
 
-    public void delete(Credential credential) {
-        credentialDAO.delete(credential);
+    public void delete(Long id) {
+        credentialDAO.delete(id);
     }
 }

@@ -1,4 +1,4 @@
-package cl.test.todolist.rest;
+package cl.test.todolist.controller.rest;
 
 import cl.test.todolist.model.Credential;
 import cl.test.todolist.model.User;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/admin/users")
+@RequestMapping("/admin/rest/users")
 public class UserRestController {
 
     @Autowired
@@ -37,9 +37,9 @@ public class UserRestController {
         return userService.update(user);
     }
 
-    @DeleteMapping
-    public void deleteOne(@RequestBody User user) {
-        userService.delete(user);
+    @DeleteMapping("/{id}")
+    public void deleteOne(@PathVariable Long id) {
+        userService.delete(id);
     }
 }
 
